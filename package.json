@@ -1,0 +1,7 @@
+{
+  "name": "hemingway",
+  "version": "0.0.0",
+  "repository": "git@github.com:lamartire/hemingway.git",
+  "author": "lamartire <lamartire@gmail.com>",
+  "license": "GPL-3.0"
+}
