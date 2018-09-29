@@ -5,6 +5,10 @@ const shortStory = require('__fixtures__/trees/short_story')
 describe('Processor', () => {
   let reporter
 
+  beforeAll(() => {
+    jest.setTimeout(30000)
+  })
+
   beforeEach(() => {
     reporter = new Reporter()
   })
@@ -19,7 +23,7 @@ describe('Processor', () => {
       jest.spyOn(stepProcessor, 'shutdown')
       await stepProcessor.run()
 
-      expect(stepProcessor.processAction).toHaveBeenCalledTimes(4)
+      expect(stepProcessor.processAction).toHaveBeenCalledTimes(5)
       expect(stepProcessor.shutdown).toHaveBeenCalledTimes(1)
     })
   })

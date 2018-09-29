@@ -37,6 +37,15 @@
       ]
     },
     {
+      "definition": "WAIT \"#rhscol\"",
+      "commands": [
+        {
+          "name": "WAIT",
+          "args": ["#rhscol"]
+        }
+      ]
+    },
+    {
       "definition": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
       "commands": [
         {

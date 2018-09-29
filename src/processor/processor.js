@@ -1,6 +1,6 @@
 const { EventEmitter } = require('events')
 const puppeteer = require('puppeteer')
-const { get, isEmpty, toLower } = require('lodash/fp')
+const { get, toLower, isEmpty, isNil } = require('lodash/fp')
 const { expect } = require('chai')
 
 const { parseInputText } = require('../parser/text')
@@ -39,11 +39,14 @@ class Processor extends EventEmitter {
     await this._page.goto(url)
   }
 
-  async find(args, modifier) {
+  async wait(args, modifier) {
     const [selector] = args
 
     await this._page.waitFor(selector)
+  }
 
+  async find(args, modifier) {
+    const [selector] = args
     const res = await this._page.$$(selector)
 
     if (res && res.length === 1) {
@@ -58,7 +61,7 @@ class Processor extends EventEmitter {
 
     if (this._cache) {
       Object.assign(this._state, {
-        [name]: this._cache
+        [name]: this._cache,
       })
     }
   }
@@ -82,7 +85,7 @@ class Processor extends EventEmitter {
     const [key] = args
     const target = get(key, this._cache)
 
-    if (!target) {
+    if (isNil(target)) {
       throw new Error(`there is no ${key} property current target`)
     }
 
@@ -118,7 +121,7 @@ class Processor extends EventEmitter {
   async init() {
     this._browser = await puppeteer.launch({
       // May be pass is from parameters
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
     })
     this._page = await this._browser.newPage()
   }
@@ -170,6 +173,9 @@ class Processor extends EventEmitter {
       case 'open':
         await this.open(args, modifier)
         break
+      case 'wait':
+        await this.wait(args, modifier)
+        break
       case 'find':
         await this.find(args, modifier)
         break
@@ -201,5 +207,5 @@ class Processor extends EventEmitter {
 }
 
 module.exports = {
-  Processor
+  Processor,
 }
