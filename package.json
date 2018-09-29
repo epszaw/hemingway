@@ -3,5 +3,78 @@
   "version": "0.0.0",
   "repository": "git@github.com:lamartire/hemingway.git",
   "author": "lamartire <lamartire@gmail.com>",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true,
+      "jest": true
+    },
+    "globals": {
+      "NODE_ENV": true
+    },
+    "extends": [
+      "prettier-standard",
+      "prettier"
+    ],
+    "plugins": [
+      "import",
+      "node",
+      "prettier"
+    ],
+    "rules": {
+      "no-unused-vars": 1
+    },
+    "parserOptions": {
+      "ecmaVersion": 8
+    }
+  },
+  "eslintIgnore": [
+    "/node_modules",
+    "/build"
+  ],
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^__fixtures__/(.*)$": "<rootDir>/src/__test__/__fixtures__/$1",
+      "^src/(.*)$": "<rootDir>/src/$1"
+    }
+  },
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chalk": "2",
+    "lodash": "^4.17.11",
+    "puppeteer": "^1.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^7.0.0-bridge",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.6.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-config-prettier-standard": "^2.0.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.3",
+    "rollup": "^0.66.2",
+    "rollup-plugin-babel": "^4.0.3"
+  }
 }

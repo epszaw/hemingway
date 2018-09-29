@@ -1,0 +1,25 @@
+language: node_js
+
+node_js:
+  - "10"
+  - "9"
+  - "8"
+
+addons:
+  chrome: stable
+
+branches:
+  only:
+    - master
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+node_js:
+  - node
+
+# TODO: setup build scripts after rollup config
+# script:
+#   - npm run build
