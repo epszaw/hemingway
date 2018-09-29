@@ -1,6 +1,6 @@
-import { Processor } from 'src/processor'
-import { Reporter } from 'src/reporter'
-import shortStory from '__fixtures__/trees/short_story'
+const { Processor } = require('src/processor')
+const { Reporter } = require('src/reporter')
+const shortStory = require('__fixtures__/trees/short_story')
 
 describe('Processor', () => {
   let reporter
@@ -10,7 +10,7 @@ describe('Processor', () => {
   })
 
   describe('step processing', () => {
-    it('short_story run', async () => {
+    it('short_story.json run (with common operators)', async () => {
       expect.assertions(2)
 
       const stepProcessor = new Processor(reporter, shortStory)

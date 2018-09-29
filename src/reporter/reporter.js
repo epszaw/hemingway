@@ -1,3 +1,7 @@
-import { EventEmitter } from 'events'
+const { EventEmitter } = require('events')
 
-export class Reporter extends EventEmitter {}
+class Reporter extends EventEmitter {}
+
+module.exports = {
+  Reporter
+}

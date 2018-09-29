@@ -19,7 +19,3 @@ cache:
 
 node_js:
   - node
-
-# TODO: setup build scripts after rollup config
-# script:
-#   - npm run build

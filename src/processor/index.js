@@ -1,1 +1,5 @@
-export { Processor } from './processor'
+const { Processor } = require('./processor')
+
+module.exports = {
+  Processor
+}

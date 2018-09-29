@@ -1,12 +1,11 @@
-import { EventEmitter } from 'events'
-import puppeteer from 'puppeteer'
-import { get, isEmpty, toLower } from 'lodash/fp'
-import { expect } from 'chai'
+const { EventEmitter } = require('events')
+const puppeteer = require('puppeteer')
+const { get, isEmpty, toLower } = require('lodash/fp')
+const { expect } = require('chai')
 
-import { parseInputText } from '../parser/text'
-import { Reporter } from '../reporter'
+const { parseInputText } = require('../parser/text')
 
-export class Processor extends EventEmitter {
+class Processor extends EventEmitter {
   constructor(reporter, step) {
     super()
 
@@ -117,7 +116,10 @@ export class Processor extends EventEmitter {
   }
 
   async init() {
-    this._browser = await puppeteer.launch()
+    this._browser = await puppeteer.launch({
+      // May be pass is from parameters
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    })
     this._page = await this._browser.newPage()
   }
 
@@ -196,4 +198,8 @@ export class Processor extends EventEmitter {
         console.log(`${name} not supported`)
     }
   }
+}
+
+module.exports = {
+  Processor
 }

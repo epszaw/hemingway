@@ -1,5 +1,5 @@
-import { Processor } from 'src/processor'
-import { EventEmitter } from 'events'
+const { Processor } = require('src/processor')
+const { EventEmitter } = require('events')
 
 describe('Processor instance', () => {
   describe('instance creating', () => {

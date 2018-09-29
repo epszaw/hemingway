@@ -1,8 +1,8 @@
-import { map, isNull, reject } from 'lodash/fp'
+const { map, isNull, reject } = require('lodash/fp')
 
 // TODO: case intensive keys
 // TODO: refactor this
-export function parseInputText(text) {
+function parseInputText(text) {
   const keyRegex = /\{\S+\}/g
 
   return reject(
@@ -23,4 +23,8 @@ export function parseInputText(text) {
       }
     }, text.replace(keyRegex, a => ` ${a} `).split(/\s/))
   )
+}
+
+module.exports = {
+  parseInputText
 }

@@ -1,1 +1,5 @@
-export { Reporter } from './reporter'
+const { Reporter } = require('./reporter')
+
+module.exports = {
+  Reporter
+}
