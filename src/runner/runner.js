@@ -1,14 +1,16 @@
 const ora = require('ora')
+const { bold } = require('chalk')
 const { Processor } = require('../processor')
+const { info, error } = require('../utils/log')
+
 const stories = require('../__test__/__fixtures__/trees/multiple_stories')
 
 class Runner {
-  constructor({ reporter, finder, parser }) {
-    this.reporter = reporter
+  constructor({ finder, parser }) {
     this.finder = finder
     this.parser = parser
     this.loader = ora({
-      text: 'Running stories',
+      text: 'Running stories...',
       color: 'green',
       spinner: 'line',
       interval: 75,
@@ -24,7 +26,18 @@ class Runner {
 
     this.loader.text = `Running stories (${passed} passed, ${
       Object.keys(failed).length
-    } failed)`
+    } failed).`
+  }
+
+  createLog() {
+    Object.keys(this.history.failed).forEach(key => {
+      const { def, message } = this.history.failed[key]
+
+      error('---')
+      error(`${bold('Story')}: ${key}`)
+      error(`${bold('Action')}: ${def}`)
+      error(`${bold('Error')}: ${message}`)
+    })
   }
 
   async findStories() {
@@ -37,12 +50,10 @@ class Runner {
   }
 
   async processStory(story) {
-    // this.reporter
     const storyProcessor = new Processor({
-      reporter: this.reporter,
       step: story,
     })
-    // console.log(storyProcessor)
+
     await storyProcessor.run()
   }
 
@@ -52,8 +63,6 @@ class Runner {
         await this.processStory(story)
         this.history.passed += 1
       } catch (err) {
-        this.reporter.error(`❌    ${story.name} failed`)
-        this.reporter.error(err)
         this.history.failed[story.name] = err
       } finally {
         this.updateLoaderText()
@@ -69,10 +78,19 @@ class Runner {
     this.loader.stop()
 
     const { passed, failed } = this.history
+    const hasError = Object.keys(failed).length > 0
 
-    this.reporter.info(
-      `${passed} passed, ${Object.keys(failed).length} failed. Done.`
-    )
+    if (hasError) {
+      error(
+        `${passed} passed, ${
+          Object.keys(failed).length
+        } failed. Done with errors, see log below.`
+      )
+      this.createLog()
+    } else {
+      info(`${passed} passed, ${Object.keys(failed).length} failed. Done.`)
+    }
+
     process.exit()
   }
 }

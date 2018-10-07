@@ -2,7 +2,7 @@
   "name": "Story name",
   "actions": [
     {
-      "definition": "OPEN main page of google search – \"https://google.com\"",
+      "def": "OPEN main page of google search – \"https://google.com\"",
       "commands": [
         {
           "name": "OPEN",
@@ -11,7 +11,7 @@
       ]
     },
     {
-      "definition": "FIND search input by selector \"#lst-ib\" and save in AS \"search-input\"",
+      "def": "FIND search input by selector \"#lst-ib\" and save in AS \"search-input\"",
       "commands": [
         {
           "name": "FIND",
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "definition": "TAKE \"search-input\" variable (saved input) and TYPE \"Hello{enter}\"",
+      "def": "TAKE \"search-input\" variable (saved input) and TYPE \"Hello{enter}\"",
       "commands": [
         {
           "name": "TAKE",
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "definition": "WAIT for \"#rhscol\" element",
+      "def": "WAIT for \"#rhscol\" element",
       "commands": [
         {
           "name": "WAIT",
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "definition": "It must FIND blocks by \".bkWMgd\" selector and their must HAVE \"length\" NOT EQUAL to \"0\"",
+      "def": "It must FIND blocks by \".bkWMgd\" selector and their must HAVE \"length\" NOT EQUAL to \"0\"",
       "commands": [
         {
           "name": "FIND",

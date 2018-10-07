@@ -3,7 +3,7 @@
     "name": "Story name 1",
     "actions": [
       {
-        "definition": "OPEN \"https://google.com\"",
+        "def": "OPEN \"https://google.com\"",
         "commands": [
           {
             "name": "OPEN",
@@ -12,7 +12,7 @@
         ]
       },
       {
-        "definition": "FIND \"#lst-ib\" AS \"search-input\"",
+        "def": "FIND \"#lst-ib\" AS \"search-input\"",
         "commands": [
           {
             "name": "FIND",
@@ -25,7 +25,7 @@
         ]
       },
       {
-        "definition": "TAKE \"search-input\" TYPE \"Hello{Enter}\"",
+        "def": "TAKE \"search-input\" TYPE \"Hello{Enter}\"",
         "commands": [
           {
             "name": "TAKE",
@@ -38,7 +38,7 @@
         ]
       },
       {
-        "definition": "WAIT \"#rhscol\"",
+        "def": "WAIT \"#rhscol\"",
         "commands": [
           {
             "name": "WAIT",
@@ -47,7 +47,7 @@
         ]
       },
       {
-        "definition": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
+        "def": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
         "commands": [
           {
             "name": "FIND",
@@ -70,7 +70,7 @@
     "name": "Story name 2",
     "actions": [
       {
-        "definition": "OPEN \"https://google.com\"",
+        "def": "OPEN \"https://google.com\"",
         "commands": [
           {
             "name": "OPEN",
@@ -79,7 +79,7 @@
         ]
       },
       {
-        "definition": "FIND \"#lst-ib\" AS \"search-input\"",
+        "def": "FIND \"#lst-ib\" AS \"search-input\"",
         "commands": [
           {
             "name": "FIND",
@@ -92,7 +92,7 @@
         ]
       },
       {
-        "definition": "TAKE \"search-input\" TYPE \"Hello{Enter}\"",
+        "def": "TAKE \"search-input\" TYPE \"Hello{Enter}\"",
         "commands": [
           {
             "name": "TAKE",
@@ -105,7 +105,7 @@
         ]
       },
       {
-        "definition": "WAIT \"#rhscol\"",
+        "def": "WAIT \"#rhscol\"",
         "commands": [
           {
             "name": "WAIT",
@@ -114,7 +114,7 @@
         ]
       },
       {
-        "definition": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
+        "def": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
         "commands": [
           {
             "name": "FIND",
@@ -137,7 +137,7 @@
     "name": "Story name 3",
     "actions": [
       {
-        "definition": "OPEN \"https://google.com\"",
+        "def": "OPEN \"https://google.com\"",
         "commands": [
           {
             "name": "OPEN",
@@ -146,7 +146,7 @@
         ]
       },
       {
-        "definition": "FIND \"#lst-ib\" AS \"search-input\"",
+        "def": "FIND \"#lst-ib\" AS \"search-input\"",
         "commands": [
           {
             "name": "FIND",
@@ -159,7 +159,7 @@
         ]
       },
       {
-        "definition": "TAKE \"search-input\" TYPE \"Hello{Enter}\"",
+        "def": "TAKE \"search-input\" TYPE \"Hello{Enter}\"",
         "commands": [
           {
             "name": "TAKE",
@@ -172,7 +172,7 @@
         ]
       },
       {
-        "definition": "WAIT \"#rhscol\"",
+        "def": "WAIT \"#rhscol\"",
         "commands": [
           {
             "name": "WAIT",
@@ -181,7 +181,7 @@
         ]
       },
       {
-        "definition": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
+        "def": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
         "commands": [
           {
             "name": "FIND",

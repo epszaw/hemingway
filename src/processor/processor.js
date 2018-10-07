@@ -3,21 +3,17 @@ const puppeteer = require('puppeteer')
 const { get, toLower, isEmpty, isNil } = require('lodash/fp')
 const { expect } = require('chai')
 
+const { ProcessorError } = require('../utils/error')
 const { parseInputText } = require('../parser/text')
 
 class Processor extends EventEmitter {
-  constructor({ reporter, step }) {
+  constructor({ step }) {
     super()
 
-    if (!reporter) {
-      throw new Error('You can not create processor without reporter!')
-    } else if (!(reporter instanceof EventEmitter)) {
-      throw new Error('Given reporter is not instance of Reporter class!')
-    } else if (!step) {
+    if (!step) {
       throw new Error('You can not create processor without step tree!')
     }
 
-    this.reporter = reporter
     this.step = step
 
     /**
@@ -30,7 +26,7 @@ class Processor extends EventEmitter {
   }
 
   /**
-   * Operators handlers definition
+   * Operators handlers def
    */
 
   async open(args, modifier) {
@@ -139,17 +135,9 @@ class Processor extends EventEmitter {
     await this.init()
 
     for (const action of this.step.actions) {
-      try {
-        await this.processAction(action)
-        this._cache = null
-        // TODO: emit error with reporter
-        // console.log(`PASS – ${action.definition}`)
-      } catch (err) {
-        // TODO: throw a real semantic errors
-        // console.log(`FAIL – ${action.definition}`)
-        console.log(err)
-        break
-      }
+      await this.processAction(action)
+
+      this._cache = null
     }
 
     await this.shutdown()
@@ -161,12 +149,12 @@ class Processor extends EventEmitter {
         try {
           await this.processCommand(command)
         } catch (err) {
-          console.log('Details err', err)
+          throw new ProcessorError({
+            def: action.def,
+            message: err.toString(),
+          })
         }
       }
-    } else {
-      // TODO: print to reporter about it
-      // console.log(`SKIP – ${action.definition}`)
     }
   }
 
