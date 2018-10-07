@@ -1,6 +1,6 @@
 const { Processor } = require('src/processor')
 const { Reporter } = require('src/reporter')
-const shortStory = require('__fixtures__/trees/short_story')
+const shortStory = require('__fixtures__/trees/common_story')
 
 describe('Processor', () => {
   let reporter
@@ -14,10 +14,13 @@ describe('Processor', () => {
   })
 
   describe('step processing', () => {
-    it('short_story.json run (with common operators)', async () => {
+    it('common_story.json run (with common operators)', async () => {
       expect.assertions(2)
 
-      const stepProcessor = new Processor(reporter, shortStory)
+      const stepProcessor = new Processor({
+        step: shortStory,
+        reporter,
+      })
 
       jest.spyOn(stepProcessor, 'processAction')
       jest.spyOn(stepProcessor, 'shutdown')

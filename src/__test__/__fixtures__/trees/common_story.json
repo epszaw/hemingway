@@ -1,5 +1,5 @@
 {
-  "name": "short_story.md",
+  "name": "Story name",
   "actions": [
     {
       "definition": "OPEN \"https://google.com\"",

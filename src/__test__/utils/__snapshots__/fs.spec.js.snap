@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils – fs readDir should returns folder content 1`] = `
+Array [
+  "stories",
+  "trees",
+]
+`;
+
+exports[`utils – fs readFile should returns file content in given encoding 1`] = `
+"OPEN \\"https://google.com\\"
+FIND \\"#lst-ib\\" AS \\"search-input\\"
+TAKE \\"search-input\\" TYPE \\"Hello{Enter}\\"
+WAIT \\"#rhscol\\"
+FIND \\".bkWMgd\\" HAVE \\"length\\" NOT EQUAL \\"0\\"
+"
+`;

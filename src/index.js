@@ -1,12 +1,15 @@
-const { Processor } = require('./processor')
 const { Reporter } = require('./reporter')
-const short = require('./__test__/__fixtures__/trees/short_story')
+const { Runner } = require('./runner')
+const { Finder } = require('./finder')
+const { Parser } = require('./parser')
 
-const hemingway = async () => {
+/* eslint-disable-next-line */
+const hemingway = async args => {
   const reporter = new Reporter()
-  const processor = new Processor(reporter, short)
+  const finder = new Finder()
+  const runner = new Runner({ reporter, finder, parser: Parser })
 
-  await processor.run()
+  await runner.run()
 }
 
 module.exports = hemingway

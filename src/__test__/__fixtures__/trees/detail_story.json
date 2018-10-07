@@ -1,5 +1,5 @@
 {
-  "name": "detail_story.md",
+  "name": "Story name",
   "actions": [
     {
       "definition": "OPEN main page of google search – \"https://google.com\"",
@@ -33,6 +33,15 @@
         {
           "name": "TYPE",
           "args": ["Hello{enter}"]
+        }
+      ]
+    },
+    {
+      "definition": "WAIT for \"#rhscol\" element",
+      "commands": [
+        {
+          "name": "WAIT",
+          "args": ["#rhscol"]
         }
       ]
     },

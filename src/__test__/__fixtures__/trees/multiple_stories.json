@@ -1,0 +1,203 @@
+[
+  {
+    "name": "Story name 1",
+    "actions": [
+      {
+        "definition": "OPEN \"https://google.com\"",
+        "commands": [
+          {
+            "name": "OPEN",
+            "args": ["https://google.com"]
+          }
+        ]
+      },
+      {
+        "definition": "FIND \"#lst-ib\" AS \"search-input\"",
+        "commands": [
+          {
+            "name": "FIND",
+            "args": ["#lst-ib"]
+          },
+          {
+            "name": "AS",
+            "args": ["search-input"]
+          }
+        ]
+      },
+      {
+        "definition": "TAKE \"search-input\" TYPE \"Hello{Enter}\"",
+        "commands": [
+          {
+            "name": "TAKE",
+            "args": ["search-input"]
+          },
+          {
+            "name": "TYPE",
+            "args": ["Hello{Enter}"]
+          }
+        ]
+      },
+      {
+        "definition": "WAIT \"#rhscol\"",
+        "commands": [
+          {
+            "name": "WAIT",
+            "args": ["#rhscol"]
+          }
+        ]
+      },
+      {
+        "definition": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
+        "commands": [
+          {
+            "name": "FIND",
+            "args": [".bkWMgd"]
+          },
+          {
+            "name": "HAVE",
+            "args": ["length"]
+          },
+          {
+            "name": "EQUAL",
+            "modifier": "NOT",
+            "args": ["0"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Story name 2",
+    "actions": [
+      {
+        "definition": "OPEN \"https://google.com\"",
+        "commands": [
+          {
+            "name": "OPEN",
+            "args": ["https://google.com"]
+          }
+        ]
+      },
+      {
+        "definition": "FIND \"#lst-ib\" AS \"search-input\"",
+        "commands": [
+          {
+            "name": "FIND",
+            "args": ["#lst-ib"]
+          },
+          {
+            "name": "AS",
+            "args": ["search-input"]
+          }
+        ]
+      },
+      {
+        "definition": "TAKE \"search-input\" TYPE \"Hello{Enter}\"",
+        "commands": [
+          {
+            "name": "TAKE",
+            "args": ["search-input"]
+          },
+          {
+            "name": "TYPE",
+            "args": ["Hello{Enter}"]
+          }
+        ]
+      },
+      {
+        "definition": "WAIT \"#rhscol\"",
+        "commands": [
+          {
+            "name": "WAIT",
+            "args": ["#rhscol"]
+          }
+        ]
+      },
+      {
+        "definition": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
+        "commands": [
+          {
+            "name": "FIND",
+            "args": [".bkWMgd"]
+          },
+          {
+            "name": "HAVE",
+            "args": ["length"]
+          },
+          {
+            "name": "EQUAL",
+            "modifier": "NOT",
+            "args": ["0"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Story name 3",
+    "actions": [
+      {
+        "definition": "OPEN \"https://google.com\"",
+        "commands": [
+          {
+            "name": "OPEN",
+            "args": ["https://google.com"]
+          }
+        ]
+      },
+      {
+        "definition": "FIND \"#lst-ib\" AS \"search-input\"",
+        "commands": [
+          {
+            "name": "FIND",
+            "args": ["#lst-ib"]
+          },
+          {
+            "name": "AS",
+            "args": ["search-input"]
+          }
+        ]
+      },
+      {
+        "definition": "TAKE \"search-input\" TYPE \"Hello{Enter}\"",
+        "commands": [
+          {
+            "name": "TAKE",
+            "args": ["search-input"]
+          },
+          {
+            "name": "TYPE",
+            "args": ["Hello{Enter}"]
+          }
+        ]
+      },
+      {
+        "definition": "WAIT \"#rhscol\"",
+        "commands": [
+          {
+            "name": "WAIT",
+            "args": ["#rhscol"]
+          }
+        ]
+      },
+      {
+        "definition": "FIND \".bkWMgd\" HAVE \"length\" NOT EQUAL \"0\"",
+        "commands": [
+          {
+            "name": "FIND",
+            "args": [".bkWMgd"]
+          },
+          {
+            "name": "HAVE",
+            "args": ["length"]
+          },
+          {
+            "name": "EQUAL",
+            "modifier": "NOT",
+            "args": ["0"]
+          }
+        ]
+      }
+    ]
+  }
+]

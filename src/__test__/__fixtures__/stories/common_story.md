@@ -1,3 +1,5 @@
+# Story name
+
 OPEN "https://google.com"
 FIND "#lst-ib" AS "search-input"
 TAKE "search-input" TYPE "Hello{Enter}"

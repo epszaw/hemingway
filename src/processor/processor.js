@@ -6,7 +6,7 @@ const { expect } = require('chai')
 const { parseInputText } = require('../parser/text')
 
 class Processor extends EventEmitter {
-  constructor(reporter, step) {
+  constructor({ reporter, step }) {
     super()
 
     if (!reporter) {
@@ -102,8 +102,11 @@ class Processor extends EventEmitter {
     }
   }
 
-  // TODO:
-  // async contain(args, modifier) {}
+  async contain(args, modifier) {
+    const [match] = args
+
+    expect(this._cache).to.contain(match)
+  }
 
   async type(args, modifier) {
     const [text] = args
@@ -120,8 +123,9 @@ class Processor extends EventEmitter {
 
   async init() {
     this._browser = await puppeteer.launch({
-      // May be pass is from parameters
+      // ? May be pass is from parameters
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      headless: !process.env.DEBUG,
     })
     this._page = await this._browser.newPage()
   }
