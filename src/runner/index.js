@@ -4,7 +4,9 @@ const { Processor } = require('../processor')
 const { info, error } = require('../utils/log')
 
 class Runner {
-  constructor({ finder, parser }) {
+  constructor({ finder, parser, args, debug }) {
+    this.debug = debug
+    this.args = args
     this.finder = finder
     this.parser = parser
     this.loader = ora({
@@ -46,7 +48,11 @@ class Runner {
   }
 
   async processStory(story) {
-    const storyProcessor = new Processor(story)
+    const storyProcessor = new Processor({
+      debug: this.debug,
+      args: this.args,
+      story,
+    })
 
     await storyProcessor.run()
   }
@@ -64,8 +70,8 @@ class Runner {
     }
   }
 
-  async run() {
-    const stories = await this.findStories()
+  async run(storiesPaths) {
+    const stories = await this.findStories(storiesPaths)
 
     this.loader.start()
     await this.processStories(stories)

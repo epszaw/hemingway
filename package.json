@@ -6,7 +6,7 @@
   "license": "GPL-3.0",
   "main": "./src/index.js",
   "bin": {
-    "hemingway": "./bin/hemingway.js"
+    "hemingway": "./bin/cli.js"
   },
   "eslintConfig": {
     "parser": "babel-eslint",

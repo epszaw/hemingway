@@ -1,21 +1,20 @@
 const { get, toLower, isEmpty, isNil } = require('lodash/fp')
-const { EventEmitter } = require('events')
 const puppeteer = require('puppeteer')
 const { expect } = require('chai')
-
 const { ProcessorError } = require('../utils/error')
-// TODO: move to other place
 const { CommonParser } = require('../parser')
 
-class Processor extends EventEmitter {
-  constructor(story) {
+class Processor extends CommonParser {
+  constructor({ story, debug, args }) {
     super()
 
     if (!story) {
       throw new Error('You can not create processor without step tree!')
     }
 
+    this.debug = debug
     this.story = story
+    this.args = args || ['--no-sandbox', '--disable-setuid-sandbox']
 
     /**
      * Private properties
@@ -107,7 +106,7 @@ class Processor extends EventEmitter {
 
   async type(args, modifier) {
     const [text] = args
-    const parsedText = CommonParser.parseInputText(text)
+    const parsedText = this.parseInputText(text)
 
     for (const { type, value } of parsedText) {
       if (type === 'key') {
@@ -120,9 +119,8 @@ class Processor extends EventEmitter {
 
   async init() {
     this._browser = await puppeteer.launch({
-      // ? May be pass is from parameters
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      headless: !process.env.DEBUG,
+      args: this.args,
+      headless: !this.debug,
     })
     this._page = await this._browser.newPage()
   }

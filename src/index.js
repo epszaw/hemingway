@@ -3,10 +3,14 @@ const { Finder } = require('./finder')
 const { StoryParser } = require('./parser')
 
 /* eslint-disable-next-line */
-const hemingway = async args => {
-  const runner = new Runner({ finder: Finder, parser: StoryParser })
+const hemingway = async ({ debug, stories }) => {
+  const runner = new Runner({
+    finder: Finder,
+    parser: StoryParser,
+    debug,
+  })
 
-  await runner.run()
+  await runner.run(stories)
 }
 
 module.exports = hemingway
