@@ -53,6 +53,7 @@
     "trailingComma": "es5"
   },
   "jest": {
+    "testURL": "http://localhost/",
     "moduleNameMapper": {
       "^__fixtures__/(.*)$": "<rootDir>/src/__test__/__fixtures__/$1",
       "^src/(.*)$": "<rootDir>/src/$1"
@@ -77,6 +78,7 @@
     "chai": "^4.1.2",
     "chalk": "2",
     "lodash": "^4.17.11",
+    "minimist": "^1.2.0",
     "ora": "^3.0.0",
     "puppeteer": "^1.8.0"
   },

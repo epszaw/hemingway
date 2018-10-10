@@ -1,5 +1,4 @@
 const { Processor } = require('src/processor')
-const { EventEmitter } = require('events')
 
 describe('Processor instance', () => {
   describe('instance creating', () => {
@@ -10,21 +9,10 @@ describe('Processor instance', () => {
       }).toThrow()
     })
 
-    it('throws if reporter is not instance of EventEmmiter', () => {
-      expect(() => {
-        /* eslint-disable-next-line */
-        new Processor({
-          reporter: {},
-        })
-      }).toThrow()
-    })
-
     it('throws if step is not given', () => {
       expect(() => {
         /* eslint-disable-next-line */
-        new Processor({
-          reporter: new EventEmitter(),
-        })
+        new Processor()
       }).toThrow()
     })
   })

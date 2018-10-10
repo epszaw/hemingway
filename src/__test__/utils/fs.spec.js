@@ -10,7 +10,7 @@ describe('utils – fs', () => {
 
       const res = await readDir(FIXTURES_PATH)
 
-      expect(res).toMatchSnapshot()
+      expect(res).toEqual(['stories', 'trees'])
     })
   })
 
