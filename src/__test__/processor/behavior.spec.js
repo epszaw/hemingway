@@ -1,5 +1,5 @@
 const { Processor } = require('src/processor')
-const shortStory = require('__fixtures__/trees/common_story')
+const shortStory = require('__fixtures__/parsed/common_story')
 
 describe('Processor', () => {
   beforeAll(() => {

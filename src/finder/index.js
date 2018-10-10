@@ -1,5 +1,11 @@
+const { filter } = require('lodash/fp')
 const path = require('path')
-const { readDir, readFile } = require('../utils/fs')
+const {
+  readDir,
+  readFile,
+  isValidStoryFilepath,
+  getFileNameFromPath,
+} = require('../utils/fs')
 
 const STORIES_PATH = path.resolve(process.cwd(), './stories')
 
@@ -11,12 +17,16 @@ class Finder {
   }
 
   static async readStories(storiesPaths) {
+    const filteredStoriesPaths = filter(isValidStoryFilepath)(storiesPaths)
     const rawStories = []
 
-    for (const story of storiesPaths) {
-      const rawStory = await readFile(story, 'utf8')
+    for (const storyPath of filteredStoriesPaths) {
+      const rawStory = await readFile(storyPath, 'utf8')
 
-      rawStories.push(rawStory)
+      rawStories.push({
+        filename: getFileNameFromPath(storyPath),
+        source: rawStory,
+      })
     }
 
     return rawStories

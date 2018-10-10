@@ -21,12 +21,21 @@ const allowedCommandsList = [
   'HAVE',
   'NOT',
 ]
+
+/**
+ * Regexes for all methods
+ */
 const operatorsRegex = new RegExp(`(${allowedCommandsList.join('|')})`)
 const modifierRegex = /(NOT)/
+const titleRegex = /^#\s/
+const operatorRegex = /[A-Z\s]+/
+const keyRegex = /({[A-Z+]+})/gim
 
+/**
+ * Stories parser with static methods
+ */
 class StoryParser {
   static parseAction(rawAction) {
-    const operatorRegex = /[A-Z\s]+/
     const words = reject(isEmpty)(rawAction.split(/("\S+")/))
     const trimmedWords = map(trim)(words)
 
@@ -70,7 +79,6 @@ class StoryParser {
   }
 
   static parseStory(rawStory) {
-    const titleRegex = /^#\s/
     const lines = reject(isEmpty, rawStory.split('\n'))
     const parsedStory = lines.reduce(
       (acc, line) => {
@@ -94,18 +102,31 @@ class StoryParser {
   }
 
   static parseStories(rawStories) {
+    const signedRawStories = this.signStoriesNames(rawStories)
     const storiesHeap = flatMap(rawStory => rawStory.split(/\n[-]{3}\n{2}/))(
-      rawStories
+      signedRawStories
     )
 
     return map(rawStory => this.parseStory(rawStory))(storiesHeap)
   }
+
+  static signStoriesNames(rawStories) {
+    return map(({ filename, source }) => {
+      if (titleRegex.test(source)) {
+        return source
+      }
+
+      return `# ${filename}\n\n${source}`
+    })(rawStories)
+  }
 }
 
+/**
+ * Parser for common cases like parsing text with keyboard keys etc.
+ * ? Can be used globally in all application
+ */
 class CommonParser {
   static parseInputText(text) {
-    const keyRegex = /({[A-Z+]+})/gim
-
     return text
       .split(keyRegex)
       .filter(word => !isEmpty(word))

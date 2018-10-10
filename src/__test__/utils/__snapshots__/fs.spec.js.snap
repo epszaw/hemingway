@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`utils – fs readDir should returns folder content 1`] = `
+Array [
+  "parsed",
+  "raw",
+  "source",
+  "stories",
+  "trees",
+]
+`;
+
 exports[`utils – fs readFile should returns file content in given encoding 1`] = `
 "# Story name
 

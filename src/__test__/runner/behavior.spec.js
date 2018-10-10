@@ -1,5 +1,5 @@
 const { Runner } = require('src/runner')
-const multipleStories = require('__fixtures__/trees/multiple_stories')
+const multipleStories = require('__fixtures__/parsed/multiple_stories')
 
 describe('Runner', () => {
   let runner
@@ -10,7 +10,6 @@ describe('Runner', () => {
 
   it('should process all stories from instance', async () => {
     runner.findStories = jest.fn().mockResolvedValueOnce(multipleStories)
-
     await runner.run()
   })
 
