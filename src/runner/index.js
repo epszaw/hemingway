@@ -1,3 +1,4 @@
+const { isEmpty } = require('lodash/fp')
 const ora = require('ora')
 const { bold } = require('chalk')
 const { Processor } = require('../processor')
@@ -40,8 +41,10 @@ class Runner {
     })
   }
 
-  async findStories() {
-    const rawStories = await this.finder.getStories()
+  async findStories(storiesPaths = []) {
+    const rawStories = !isEmpty(storiesPaths)
+      ? await this.finder.getStoriesByPaths(storiesPaths)
+      : await this.finder.getStories()
     const parsedStories = this.parser.parseStories(rawStories)
 
     return parsedStories

@@ -1,13 +1,18 @@
-const { get, toLower, isEmpty, isNil } = require('lodash/fp')
+const {
+  get,
+  toLower,
+  isEmpty,
+  isNil,
+  assign,
+  capitalize,
+} = require('lodash/fp')
 const puppeteer = require('puppeteer')
 const { expect } = require('chai')
 const { ProcessorError } = require('../utils/error')
 const { CommonParser } = require('../parser')
 
-class Processor extends CommonParser {
+class Processor {
   constructor({ story, debug, args }) {
-    super()
-
     if (!story) {
       throw new Error('You can not create processor without step tree!')
     }
@@ -29,18 +34,52 @@ class Processor extends CommonParser {
    * Operators handlers def
    */
 
+  /**
+   * Opens given url in initialized browser
+   * Next actions works in opened page context
+   * @param {Array<String>} args
+   * @param {String} modifier
+   * @returns {Promise<void>}
+   */
   async open(args, modifier) {
     const [url] = args
 
     await this._page.goto(url)
   }
 
+  /**
+   * Waits appearing element with given selector in the DOM of opened page
+   * @param {Array<String>} args
+   * @param {String} modifier
+   * @returns {Promise<void>}
+   */
   async wait(args, modifier) {
     const [selector] = args
 
     await this._page.waitFor(selector)
   }
 
+  /**
+   * Stops test on given time period in seconds
+   * @param {Array<String>} args
+   * @param {String} modifier
+   * @returns {Promise<void>}
+   */
+  async sleep(args, modifier) {
+    const [time] = args
+
+    await this._page.this.wait(time)
+  }
+
+  /**
+   * Finds elements by given selector
+   * If founds multiple elements – save array of elements to processor cache
+   * If founds one element – save element object to processor cache
+   * If not founds any elements – save null to processor cache
+   * @param {Array<String>} args
+   * @param {String} modifier
+   * @returns {Promise<Object>}
+   */
   async find(args, modifier) {
     const [selector] = args
     const res = await this._page.$$(selector)
@@ -52,16 +91,38 @@ class Processor extends CommonParser {
     }
   }
 
+  /**
+   * Saves current processor cache to state object for next interations with it
+   * Other operators can access it by given key
+   * @example
+   * FIND "#something" AS "foo" // Saves element to state by "foo" key
+   * TAKE "foo" TYPE "hello"    // Takes element from state and type "hello"
+   * @param {Array<String>} args
+   * @param {String} modifier
+   * @returns {Promise<Object>}
+   */
   as(args, modifier) {
     const [name] = args
 
     if (this._cache) {
-      Object.assign(this._state, {
+      this._state = assign(this._state, {
         [name]: this._cache,
       })
     }
   }
 
+  /**
+   * Takes property from processor cache by given key
+   * If property doesn't exist – throws error
+   * @example
+   * FIND "#something" AS "foo" // Saves element to state by "foo" key
+   * TAKE "foo" TYPE "hello"    // Takes element from state and type "hello"
+   * @example
+   * TAKE "bar" TYPE "hello"    // Will throw error and terminate processor
+   * @param {Array<String>} args
+   * @param {*} modifier
+   * @returs {Promise<void>}
+   */
   take(args, modifier) {
     const [name] = args
     const target = get(name, this._state)
@@ -73,8 +134,44 @@ class Processor extends CommonParser {
     this._cache = target
   }
 
+  /**
+   * Emulate click event on element from processor cache
+   * @example
+   * FIND "#something" CLICK
+   * @param {Array<String>} args
+   * @param {String} modifier
+   * @returns {Promise<Object>}
+   */
   async click(args, modifier) {
     await this._cache.click()
+  }
+
+  /**
+   * Type given text to element from processor cache
+   * Supports keyboard keys like "Enter", "Ctrl" etc.
+   * @example
+   * FIND "#something" TYPE "Hello world!{Enter}" // Will type "Hello world!" and press Enter key
+   * @param {*} args
+   * @param {*} modifier
+   * @returns {Promise<void>}
+   */
+  async type(args, modifier) {
+    const [text] = args
+    const parsedText = CommonParser.parseInputText(text)
+
+    for (const { type, value } of parsedText) {
+      if (type === 'key') {
+        await this._cache.press(capitalize(value))
+      } else {
+        await this._cache.type(value)
+      }
+    }
+  }
+
+  contain(args, modifier) {
+    const [match] = args
+
+    expect(this._cache).to.contain(match)
   }
 
   have(args, modifier) {
@@ -95,25 +192,6 @@ class Processor extends CommonParser {
       expect(this._cache).not.to.equal(value)
     } else {
       expect(this._cache).to.equal(value)
-    }
-  }
-
-  async contain(args, modifier) {
-    const [match] = args
-
-    expect(this._cache).to.contain(match)
-  }
-
-  async type(args, modifier) {
-    const [text] = args
-    const parsedText = this.parseInputText(text)
-
-    for (const { type, value } of parsedText) {
-      if (type === 'key') {
-        await this._cache.press(value)
-      } else {
-        await this._cache.type(value)
-      }
     }
   }
 
@@ -186,7 +264,7 @@ class Processor extends CommonParser {
         this.equal(args, modifier)
         break
       case 'contain':
-        await this.contain(args, modifier)
+        this.contain(args, modifier)
         break
       case 'type':
         await this.type(args, modifier)
