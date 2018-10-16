@@ -30,13 +30,16 @@ const modifierRegex = /(NOT)/
 const titleRegex = /^#\s/
 const operatorRegex = /[A-Z\s]+/
 const keyRegex = /({[A-Z+]+})/gim
+const actionsSplittingRegex = /("[^"]+"|[\w]+)/
 
 /**
  * Stories parser with static methods
  */
 class StoryParser {
   static parseAction(rawAction) {
-    const words = reject(isEmpty)(rawAction.split(/("\S+")/))
+    const words = reject(word => isEmpty(word) || /^\s$/.test(word))(
+      rawAction.split(actionsSplittingRegex)
+    )
     const trimmedWords = map(trim)(words)
 
     return trimmedWords.reduce(
@@ -45,13 +48,21 @@ class StoryParser {
         const lastCommand = last(acc.commands)
 
         if (isOperator && modifierRegex.test(word)) {
-          const [modifier, name] = word.split(' ')
           return assign(acc, {
             commands: concat(acc.commands, {
-              name,
-              modifier,
+              name: null,
+              modifier: word,
               args: [],
             }),
+          })
+        } else if (isOperator && lastCommand && !lastCommand.name) {
+          return assign(acc, {
+            commands: concat(
+              slice(0, acc.commands.length - 1, acc.commands),
+              assign(lastCommand, {
+                name: word,
+              })
+            ),
           })
         } else if (isOperator && operatorsRegex.test(word)) {
           return assign(acc, {

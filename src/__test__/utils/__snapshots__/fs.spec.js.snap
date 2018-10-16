@@ -4,9 +4,6 @@ exports[`utils – fs readDir should returns folder content 1`] = `
 Array [
   "parsed",
   "raw",
-  "source",
-  "stories",
-  "trees",
 ]
 `;
 

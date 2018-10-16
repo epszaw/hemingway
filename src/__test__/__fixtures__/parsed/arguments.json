@@ -1,0 +1,95 @@
+{
+  "name": "Arguments",
+  "actions": [
+    {
+      "def": "FIND \".foo\" HAVE \"length\" NOT EQUAL \"0\"",
+      "commands": [
+        {
+          "name": "FIND",
+          "args": [".foo"]
+        },
+        {
+          "name": "HAVE",
+          "args": ["length"]
+        },
+        {
+          "name": "EQUAL",
+          "modifier": "NOT",
+          "args": ["0"]
+        }
+      ]
+    },
+    {
+      "def": "FIND \".foo .bar\" HAVE \"length\" NOT EQUAL \"0\"",
+      "commands": [
+        {
+          "name": "FIND",
+          "args": [".foo .bar"]
+        },
+        {
+          "name": "HAVE",
+          "args": ["length"]
+        },
+        {
+          "name": "EQUAL",
+          "modifier": "NOT",
+          "args": ["0"]
+        }
+      ]
+    },
+    {
+      "def": "FIND \"[data-test='foo']\" HAVE \"length\" NOT EQUAL \"0\"",
+      "commands": [
+        {
+          "name": "FIND",
+          "args": ["[data-test='foo']"]
+        },
+        {
+          "name": "HAVE",
+          "args": ["length"]
+        },
+        {
+          "name": "EQUAL",
+          "modifier": "NOT",
+          "args": ["0"]
+        }
+      ]
+    },
+    {
+      "def": "FIND \"[data-test='foo'] .bar\" HAVE \"length\" NOT EQUAL \"0\"",
+      "commands": [
+        {
+          "name": "FIND",
+          "args": ["[data-test='foo'] .bar"]
+        },
+        {
+          "name": "HAVE",
+          "args": ["length"]
+        },
+        {
+          "name": "EQUAL",
+          "modifier": "NOT",
+          "args": ["0"]
+        }
+      ]
+    },
+    {
+      "def": "FIND \".foo [data-test='bar']\" HAVE \"length\" NOT EQUAL \"0\"",
+      "commands": [
+        {
+          "name": "FIND",
+          "args": [".foo [data-test='bar']"]
+        },
+        {
+          "name": "HAVE",
+          "args": ["length"]
+        },
+        {
+          "name": "EQUAL",
+          "modifier": "NOT",
+          "args": ["0"]
+        }
+      ]
+    }
+  ]
+}

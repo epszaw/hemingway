@@ -16,6 +16,15 @@ class Finder {
     return storiesPaths.map(story => path.resolve(STORIES_PATH, story))
   }
 
+  static async findStoriesByPaths(storiesPaths) {
+    for (const storyPath of storiesPaths) {
+      try {
+        // TODO: check is file exist of not. Dont read it!!!
+        // const res = await
+      } catch (err) {}
+    }
+  }
+
   static async readStories(storiesPaths) {
     const filteredStoriesPaths = filter(isValidStoryFilepath)(storiesPaths)
     const rawStories = []
@@ -28,6 +37,13 @@ class Finder {
         source: rawStory,
       })
     }
+
+    return rawStories
+  }
+
+  static async getStoriesByPaths(storiesPaths) {
+    const stories = await this.findStoriesByPaths(storiesPaths)
+    const rawStories = await this.readStories(stories)
 
     return rawStories
   }
