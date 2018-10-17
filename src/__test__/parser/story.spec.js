@@ -2,10 +2,6 @@ const path = require('path')
 const { StoryParser } = require('src/parser')
 const { readFile } = require('src/utils/fs')
 
-const parsedCommonStory = require('__fixtures__/parsed/common_story')
-const parsedMultipleStories = require('__fixtures__/parsed/multiple_stories')
-const parsedArgumentsStory = require('__fixtures__/parsed/arguments')
-
 const readRawStoryFixture = async name => {
   const res = await readFile(
     path.resolve(__dirname, `../__fixtures__/raw/${name}.md`),
@@ -21,6 +17,7 @@ describe('StoryParser', () => {
   let untitledStory
   let titledStory
   let argumentsStory
+  let operatorsStory
 
   beforeAll(async () => {
     singleStory = await readRawStoryFixture('common_story')
@@ -28,6 +25,7 @@ describe('StoryParser', () => {
     untitledStory = await readRawStoryFixture('untitled_story')
     titledStory = await readRawStoryFixture('titled_story')
     argumentsStory = await readRawStoryFixture('arguments')
+    operatorsStory = await readRawStoryFixture('operators')
   })
 
   describe('StoryParser – signStoriesNames', () => {
@@ -52,10 +50,12 @@ describe('StoryParser', () => {
         commands: [
           {
             name: 'FIND',
+            modifier: null,
             args: ['.bar'],
           },
           {
             name: 'HAVE',
+            modifier: null,
             args: ['length'],
           },
         ],
@@ -72,10 +72,12 @@ describe('StoryParser', () => {
         commands: [
           {
             name: 'FIND',
+            modifier: null,
             args: [`.foo [data-test='bar']`],
           },
           {
             name: 'HAVE',
+            modifier: null,
             args: ['length'],
           },
         ],
@@ -87,13 +89,19 @@ describe('StoryParser', () => {
     it('should correctly parse story without annotations', () => {
       const res = StoryParser.parseStory(singleStory)
 
-      expect(res).toEqual(parsedCommonStory)
+      expect(res).toMatchSnapshot()
     })
 
     it('should correctly parse actions with separated arguments', () => {
       const res = StoryParser.parseStory(argumentsStory)
 
-      expect(res).toEqual(parsedArgumentsStory)
+      expect(res).toMatchSnapshot()
+    })
+
+    it('should correctly parse story with diffirent operators', () => {
+      const res = StoryParser.parseStory(operatorsStory)
+
+      expect(res).toMatchSnapshot()
     })
   })
 
@@ -106,7 +114,137 @@ describe('StoryParser', () => {
         },
       ])
 
-      expect(res).toEqual(parsedMultipleStories)
+      expect(res).toMatchSnapshot()
+    })
+  })
+
+  describe('StoryParser – appendModifier', () => {
+    it('should returns given object with unbinded modifier', () => {
+      const acc = {
+        commands: [
+          {
+            name: 'TAKE',
+            modifier: null,
+            args: [],
+          },
+        ],
+      }
+      const modifier = 'NOT'
+
+      expect(StoryParser.appendModifier(acc, modifier)).toEqual({
+        commands: [
+          {
+            name: 'TAKE',
+            modifier: null,
+            args: [],
+          },
+          {
+            name: null,
+            modifier,
+            args: [],
+          },
+        ],
+      })
+    })
+  })
+
+  describe('StoryParser – appendOperatorToModifier', () => {
+    it('should returns given object with merge of last modifier and new command', () => {
+      const acc = {
+        commands: [
+          {
+            name: 'TAKE',
+            modifier: null,
+            args: [],
+          },
+          {
+            name: null,
+            modifier: 'NOT',
+            args: [],
+          },
+        ],
+      }
+      const operator = 'FIND'
+
+      expect(StoryParser.appendOperatorToModifier(acc, operator)).toEqual({
+        commands: [
+          {
+            name: 'TAKE',
+            modifier: null,
+            args: [],
+          },
+          {
+            name: 'FIND',
+            modifier: 'NOT',
+            args: [],
+          },
+        ],
+      })
+    })
+  })
+
+  describe('StoryParser – appendOperator', () => {
+    it('should returns given object with new command ', () => {
+      const acc = {
+        commands: [
+          {
+            name: 'TAKE',
+            modifier: null,
+            args: [],
+          },
+        ],
+      }
+      const operator = 'FIND'
+
+      expect(StoryParser.appendOperator(acc, operator)).toEqual({
+        commands: [
+          {
+            name: 'TAKE',
+            modifier: null,
+            args: [],
+          },
+          {
+            name: 'FIND',
+            modifier: null,
+            args: [],
+          },
+        ],
+      })
+    })
+  })
+
+  describe('StoryParser – appendArguments', () => {
+    it('should returns given object and expand last command arguments', () => {
+      const acc = {
+        commands: [
+          {
+            name: 'TAKE',
+            modifier: null,
+            args: [],
+          },
+          {
+            name: 'FIND',
+            modifier: null,
+            args: [],
+          },
+        ],
+      }
+      const args = 'hello world'
+
+      expect(StoryParser.appendArguments(acc, args)).toEqual({
+        commands: [
+          {
+            name: 'TAKE',
+            modifier: null,
+            args: [],
+          },
+          {
+            name: 'FIND',
+            modifier: null,
+            args: ['hello world'],
+          },
+        ],
+      })
     })
   })
 })

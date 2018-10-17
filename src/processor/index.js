@@ -65,10 +65,10 @@ class Processor {
    * @param {String} modifier
    * @returns {Promise<void>}
    */
-  async sleep(args, modifier) {
+  sleep(args, modifier) {
     const [time] = args
 
-    await this._page.this.wait(time)
+    return new Promise((resolve, reject) => setTimeout(resolve, time))
   }
 
   /**
@@ -82,13 +82,19 @@ class Processor {
    */
   async find(args, modifier) {
     const [selector] = args
-    const res = await this._page.$$(selector)
 
-    if (res && res.length === 1) {
-      this._cache = res[0]
-    } else {
-      this._cache = res
-    }
+    return this._page
+      .waitFor(selector, {
+        timeout: 10000,
+      })
+      .then(() => this._page.$$(selector))
+      .then(res => {
+        if (res && res.length === 1) {
+          this._cache = res[0]
+        } else {
+          this._cache = res
+        }
+      })
   }
 
   /**
@@ -268,6 +274,9 @@ class Processor {
         break
       case 'type':
         await this.type(args, modifier)
+        break
+      case 'sleep':
+        await this.sleep(args, modifier)
         break
       default:
         // TODO: move to parser
