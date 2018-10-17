@@ -7,7 +7,8 @@
         "commands": [
           {
             "name": "OPEN",
-            "args": ["https://google.com"]
+            "args": ["https://google.com"],
+            "modifier": null
           }
         ]
       },
@@ -16,11 +17,13 @@
         "commands": [
           {
             "name": "FIND",
-            "args": ["#lst-ib"]
+            "args": ["#lst-ib"],
+            "modifier": null
           },
           {
             "name": "AS",
-            "args": ["search-input"]
+            "args": ["search-input"],
+            "modifier": null
           }
         ]
       },
@@ -29,11 +32,13 @@
         "commands": [
           {
             "name": "TAKE",
-            "args": ["search-input"]
+            "args": ["search-input"],
+            "modifier": null
           },
           {
             "name": "TYPE",
-            "args": ["Hello{Enter}"]
+            "args": ["Hello{Enter}"],
+            "modifier": null
           }
         ]
       },
@@ -42,7 +47,8 @@
         "commands": [
           {
             "name": "WAIT",
-            "args": ["#rhscol"]
+            "args": ["#rhscol"],
+            "modifier": null
           }
         ]
       },
@@ -51,11 +57,13 @@
         "commands": [
           {
             "name": "FIND",
-            "args": [".bkWMgd"]
+            "args": [".bkWMgd"],
+            "modifier": null
           },
           {
             "name": "HAVE",
-            "args": ["length"]
+            "args": ["length"],
+            "modifier": null
           },
           {
             "name": "EQUAL",
@@ -74,7 +82,8 @@
         "commands": [
           {
             "name": "OPEN",
-            "args": ["https://google.com"]
+            "args": ["https://google.com"],
+            "modifier": null
           }
         ]
       },
@@ -83,11 +92,13 @@
         "commands": [
           {
             "name": "FIND",
-            "args": ["#lst-ib"]
+            "args": ["#lst-ib"],
+            "modifier": null
           },
           {
             "name": "AS",
-            "args": ["search-input"]
+            "args": ["search-input"],
+            "modifier": null
           }
         ]
       },
@@ -96,11 +107,13 @@
         "commands": [
           {
             "name": "TAKE",
-            "args": ["search-input"]
+            "args": ["search-input"],
+            "modifier": null
           },
           {
             "name": "TYPE",
-            "args": ["Hello{Enter}"]
+            "args": ["Hello{Enter}"],
+            "modifier": null
           }
         ]
       },
@@ -109,7 +122,8 @@
         "commands": [
           {
             "name": "WAIT",
-            "args": ["#rhscol"]
+            "args": ["#rhscol"],
+            "modifier": null
           }
         ]
       },
@@ -118,11 +132,13 @@
         "commands": [
           {
             "name": "FIND",
-            "args": [".bkWMgd"]
+            "args": [".bkWMgd"],
+            "modifier": null
           },
           {
             "name": "HAVE",
-            "args": ["length"]
+            "args": ["length"],
+            "modifier": null
           },
           {
             "name": "EQUAL",
@@ -141,7 +157,8 @@
         "commands": [
           {
             "name": "OPEN",
-            "args": ["https://google.com"]
+            "args": ["https://google.com"],
+            "modifier": null
           }
         ]
       },
@@ -150,11 +167,13 @@
         "commands": [
           {
             "name": "FIND",
-            "args": ["#lst-ib"]
+            "args": ["#lst-ib"],
+            "modifier": null
           },
           {
             "name": "AS",
-            "args": ["search-input"]
+            "args": ["search-input"],
+            "modifier": null
           }
         ]
       },
@@ -163,11 +182,13 @@
         "commands": [
           {
             "name": "TAKE",
-            "args": ["search-input"]
+            "args": ["search-input"],
+            "modifier": null
           },
           {
             "name": "TYPE",
-            "args": ["Hello{Enter}"]
+            "args": ["Hello{Enter}"],
+            "modifier": null
           }
         ]
       },
@@ -176,7 +197,8 @@
         "commands": [
           {
             "name": "WAIT",
-            "args": ["#rhscol"]
+            "args": ["#rhscol"],
+            "modifier": null
           }
         ]
       },
@@ -185,11 +207,13 @@
         "commands": [
           {
             "name": "FIND",
-            "args": [".bkWMgd"]
+            "args": [".bkWMgd"],
+            "modifier": null
           },
           {
             "name": "HAVE",
-            "args": ["length"]
+            "args": ["length"],
+            "modifier": null
           },
           {
             "name": "EQUAL",

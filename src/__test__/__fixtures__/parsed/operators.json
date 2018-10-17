@@ -1,0 +1,20 @@
+{
+  "name": "Operators",
+  "actions": [
+    {
+      "def": "FIND \".foo button.bar\" CLICK",
+      "commands": [
+        {
+          "name": "FIND",
+          "args": [".foo button.bar"],
+          "modifier": null
+        },
+        {
+          "name": "CLICK",
+          "args": [],
+          "modifier": null
+        }
+      ]
+    }
+  ]
+}

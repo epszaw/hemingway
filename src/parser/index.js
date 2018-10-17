@@ -8,6 +8,7 @@ const {
   slice,
   concat,
   flatMap,
+  get,
 } = require('lodash/fp')
 
 const allowedCommandsList = [
@@ -20,6 +21,8 @@ const allowedCommandsList = [
   'EQUAL',
   'HAVE',
   'NOT',
+  'SLEEP',
+  'CLICK',
 ]
 
 /**
@@ -28,7 +31,6 @@ const allowedCommandsList = [
 const operatorsRegex = new RegExp(`(${allowedCommandsList.join('|')})`)
 const modifierRegex = /(NOT)/
 const titleRegex = /^#\s/
-const operatorRegex = /[A-Z\s]+/
 const keyRegex = /({[A-Z+]+})/gim
 const actionsSplittingRegex = /("[^"]+"|[\w]+)/
 
@@ -36,51 +38,71 @@ const actionsSplittingRegex = /("[^"]+"|[\w]+)/
  * Stories parser with static methods
  */
 class StoryParser {
+  static appendModifier(acc, atom) {
+    return assign(acc, {
+      commands: concat(acc.commands, {
+        name: null,
+        modifier: atom,
+        args: [],
+      }),
+    })
+  }
+
+  static appendOperatorToModifier(acc, atom) {
+    return assign(acc, {
+      commands: concat(
+        slice(0, acc.commands.length - 1, acc.commands),
+        assign(last(acc.commands), {
+          name: atom,
+        })
+      ),
+    })
+  }
+
+  static appendOperator(acc, atom) {
+    return assign(acc, {
+      commands: concat(acc.commands, {
+        name: atom,
+        modifier: null,
+        args: [],
+      }),
+    })
+  }
+
+  static appendArguments(acc, atom) {
+    const lastCommand = last(acc.commands)
+
+    return assign(acc, {
+      commands: concat(
+        slice(0, acc.commands.length - 1, acc.commands),
+        assign(lastCommand, {
+          args: concat(lastCommand.args, atom.replace(/"/g, '')),
+        })
+      ),
+    })
+  }
+
   static parseAction(rawAction) {
-    const words = reject(word => isEmpty(word) || /^\s$/.test(word))(
+    const atoms = reject(word => isEmpty(word) || /^\s$/.test(word))(
       rawAction.split(actionsSplittingRegex)
     )
-    const trimmedWords = map(trim)(words)
+    const trimmedAtoms = map(trim)(atoms)
 
-    return trimmedWords.reduce(
-      (acc, word) => {
-        const isOperator = operatorRegex.test(word)
+    return trimmedAtoms.reduce(
+      (acc, atom) => {
+        const isOperator = operatorsRegex.test(atom)
+        const isModifier = isOperator && modifierRegex.test(atom)
         const lastCommand = last(acc.commands)
 
-        if (isOperator && modifierRegex.test(word)) {
-          return assign(acc, {
-            commands: concat(acc.commands, {
-              name: null,
-              modifier: word,
-              args: [],
-            }),
-          })
-        } else if (isOperator && lastCommand && !lastCommand.name) {
-          return assign(acc, {
-            commands: concat(
-              slice(0, acc.commands.length - 1, acc.commands),
-              assign(lastCommand, {
-                name: word,
-              })
-            ),
-          })
-        } else if (isOperator && operatorsRegex.test(word)) {
-          return assign(acc, {
-            commands: concat(acc.commands, {
-              name: word,
-              args: [],
-            }),
-          })
+        if (isModifier) {
+          return this.appendModifier(acc, atom)
+        } else if (isOperator && lastCommand && !get('name', lastCommand)) {
+          return this.appendOperatorToModifier(acc, atom)
+        } else if (isOperator) {
+          return this.appendOperator(acc, atom)
         }
 
-        return assign(acc, {
-          commands: concat(
-            slice(0, acc.commands.length - 1, acc.commands),
-            assign(lastCommand, {
-              args: concat(lastCommand.args, word.replace(/"/g, '')),
-            })
-          ),
-        })
+        return this.appendArguments(acc, atom)
       },
       {
         def: rawAction,

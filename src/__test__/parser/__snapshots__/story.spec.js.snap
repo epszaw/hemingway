@@ -1,0 +1,544 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoryParser StoryParser – parseStories should correctly parse multiple stories without annotations 1`] = `
+Array [
+  Object {
+    "actions": Array [
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "https://google.com",
+            ],
+            "modifier": null,
+            "name": "OPEN",
+          },
+        ],
+        "def": "OPEN \\"https://google.com\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "#lst-ib",
+            ],
+            "modifier": null,
+            "name": "FIND",
+          },
+          Object {
+            "args": Array [
+              "search-input",
+            ],
+            "modifier": null,
+            "name": "AS",
+          },
+        ],
+        "def": "FIND \\"#lst-ib\\" AS \\"search-input\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "search-input",
+            ],
+            "modifier": null,
+            "name": "TAKE",
+          },
+          Object {
+            "args": Array [
+              "Hello{Enter}",
+            ],
+            "modifier": null,
+            "name": "TYPE",
+          },
+        ],
+        "def": "TAKE \\"search-input\\" TYPE \\"Hello{Enter}\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "#rhscol",
+            ],
+            "modifier": null,
+            "name": "WAIT",
+          },
+        ],
+        "def": "WAIT \\"#rhscol\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              ".bkWMgd",
+            ],
+            "modifier": null,
+            "name": "FIND",
+          },
+          Object {
+            "args": Array [
+              "length",
+            ],
+            "modifier": null,
+            "name": "HAVE",
+          },
+          Object {
+            "args": Array [
+              "0",
+            ],
+            "modifier": "NOT",
+            "name": "EQUAL",
+          },
+        ],
+        "def": "FIND \\".bkWMgd\\" HAVE \\"length\\" NOT EQUAL \\"0\\"",
+      },
+    ],
+    "name": "Story name 1",
+  },
+  Object {
+    "actions": Array [
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "https://google.com",
+            ],
+            "modifier": null,
+            "name": "OPEN",
+          },
+        ],
+        "def": "OPEN \\"https://google.com\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "#lst-ib",
+            ],
+            "modifier": null,
+            "name": "FIND",
+          },
+          Object {
+            "args": Array [
+              "search-input",
+            ],
+            "modifier": null,
+            "name": "AS",
+          },
+        ],
+        "def": "FIND \\"#lst-ib\\" AS \\"search-input\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "search-input",
+            ],
+            "modifier": null,
+            "name": "TAKE",
+          },
+          Object {
+            "args": Array [
+              "Hello{Enter}",
+            ],
+            "modifier": null,
+            "name": "TYPE",
+          },
+        ],
+        "def": "TAKE \\"search-input\\" TYPE \\"Hello{Enter}\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "#rhscol",
+            ],
+            "modifier": null,
+            "name": "WAIT",
+          },
+        ],
+        "def": "WAIT \\"#rhscol\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              ".bkWMgd",
+            ],
+            "modifier": null,
+            "name": "FIND",
+          },
+          Object {
+            "args": Array [
+              "length",
+            ],
+            "modifier": null,
+            "name": "HAVE",
+          },
+          Object {
+            "args": Array [
+              "0",
+            ],
+            "modifier": "NOT",
+            "name": "EQUAL",
+          },
+        ],
+        "def": "FIND \\".bkWMgd\\" HAVE \\"length\\" NOT EQUAL \\"0\\"",
+      },
+    ],
+    "name": "Story name 2",
+  },
+  Object {
+    "actions": Array [
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "https://google.com",
+            ],
+            "modifier": null,
+            "name": "OPEN",
+          },
+        ],
+        "def": "OPEN \\"https://google.com\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "#lst-ib",
+            ],
+            "modifier": null,
+            "name": "FIND",
+          },
+          Object {
+            "args": Array [
+              "search-input",
+            ],
+            "modifier": null,
+            "name": "AS",
+          },
+        ],
+        "def": "FIND \\"#lst-ib\\" AS \\"search-input\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "search-input",
+            ],
+            "modifier": null,
+            "name": "TAKE",
+          },
+          Object {
+            "args": Array [
+              "Hello{Enter}",
+            ],
+            "modifier": null,
+            "name": "TYPE",
+          },
+        ],
+        "def": "TAKE \\"search-input\\" TYPE \\"Hello{Enter}\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              "#rhscol",
+            ],
+            "modifier": null,
+            "name": "WAIT",
+          },
+        ],
+        "def": "WAIT \\"#rhscol\\"",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              ".bkWMgd",
+            ],
+            "modifier": null,
+            "name": "FIND",
+          },
+          Object {
+            "args": Array [
+              "length",
+            ],
+            "modifier": null,
+            "name": "HAVE",
+          },
+          Object {
+            "args": Array [
+              "0",
+            ],
+            "modifier": "NOT",
+            "name": "EQUAL",
+          },
+        ],
+        "def": "FIND \\".bkWMgd\\" HAVE \\"length\\" NOT EQUAL \\"0\\"",
+      },
+    ],
+    "name": "Story name 3",
+  },
+]
+`;
+
+exports[`StoryParser StoryParser – parseStory should correctly parse actions with separated arguments 1`] = `
+Object {
+  "actions": Array [
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            ".foo",
+          ],
+          "modifier": null,
+          "name": "FIND",
+        },
+        Object {
+          "args": Array [
+            "length",
+          ],
+          "modifier": null,
+          "name": "HAVE",
+        },
+        Object {
+          "args": Array [
+            "0",
+          ],
+          "modifier": "NOT",
+          "name": "EQUAL",
+        },
+      ],
+      "def": "FIND \\".foo\\" HAVE \\"length\\" NOT EQUAL \\"0\\"",
+    },
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            ".foo .bar",
+          ],
+          "modifier": null,
+          "name": "FIND",
+        },
+        Object {
+          "args": Array [
+            "length",
+          ],
+          "modifier": null,
+          "name": "HAVE",
+        },
+        Object {
+          "args": Array [
+            "0",
+          ],
+          "modifier": "NOT",
+          "name": "EQUAL",
+        },
+      ],
+      "def": "FIND \\".foo .bar\\" HAVE \\"length\\" NOT EQUAL \\"0\\"",
+    },
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            "[data-test='foo']",
+          ],
+          "modifier": null,
+          "name": "FIND",
+        },
+        Object {
+          "args": Array [
+            "length",
+          ],
+          "modifier": null,
+          "name": "HAVE",
+        },
+        Object {
+          "args": Array [
+            "0",
+          ],
+          "modifier": "NOT",
+          "name": "EQUAL",
+        },
+      ],
+      "def": "FIND \\"[data-test='foo']\\" HAVE \\"length\\" NOT EQUAL \\"0\\"",
+    },
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            "[data-test='foo'] .bar",
+          ],
+          "modifier": null,
+          "name": "FIND",
+        },
+        Object {
+          "args": Array [
+            "length",
+          ],
+          "modifier": null,
+          "name": "HAVE",
+        },
+        Object {
+          "args": Array [
+            "0",
+          ],
+          "modifier": "NOT",
+          "name": "EQUAL",
+        },
+      ],
+      "def": "FIND \\"[data-test='foo'] .bar\\" HAVE \\"length\\" NOT EQUAL \\"0\\"",
+    },
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            ".foo [data-test='bar']",
+          ],
+          "modifier": null,
+          "name": "FIND",
+        },
+        Object {
+          "args": Array [
+            "length",
+          ],
+          "modifier": null,
+          "name": "HAVE",
+        },
+        Object {
+          "args": Array [
+            "0",
+          ],
+          "modifier": "NOT",
+          "name": "EQUAL",
+        },
+      ],
+      "def": "FIND \\".foo [data-test='bar']\\" HAVE \\"length\\" NOT EQUAL \\"0\\"",
+    },
+  ],
+  "name": "Arguments",
+}
+`;
+
+exports[`StoryParser StoryParser – parseStory should correctly parse story with diffirent operators 1`] = `
+Object {
+  "actions": Array [
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            ".foo button.bar",
+          ],
+          "modifier": null,
+          "name": "FIND",
+        },
+        Object {
+          "args": Array [],
+          "modifier": null,
+          "name": "CLICK",
+        },
+      ],
+      "def": "FIND \\".foo button.bar\\" CLICK",
+    },
+  ],
+  "name": "Operators",
+}
+`;
+
+exports[`StoryParser StoryParser – parseStory should correctly parse story without annotations 1`] = `
+Object {
+  "actions": Array [
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            "https://google.com",
+          ],
+          "modifier": null,
+          "name": "OPEN",
+        },
+      ],
+      "def": "OPEN \\"https://google.com\\"",
+    },
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            "#lst-ib",
+          ],
+          "modifier": null,
+          "name": "FIND",
+        },
+        Object {
+          "args": Array [
+            "search-input",
+          ],
+          "modifier": null,
+          "name": "AS",
+        },
+      ],
+      "def": "FIND \\"#lst-ib\\" AS \\"search-input\\"",
+    },
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            "search-input",
+          ],
+          "modifier": null,
+          "name": "TAKE",
+        },
+        Object {
+          "args": Array [
+            "Hello{Enter}",
+          ],
+          "modifier": null,
+          "name": "TYPE",
+        },
+      ],
+      "def": "TAKE \\"search-input\\" TYPE \\"Hello{Enter}\\"",
+    },
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            "#rhscol",
+          ],
+          "modifier": null,
+          "name": "WAIT",
+        },
+      ],
+      "def": "WAIT \\"#rhscol\\"",
+    },
+    Object {
+      "commands": Array [
+        Object {
+          "args": Array [
+            ".bkWMgd",
+          ],
+          "modifier": null,
+          "name": "FIND",
+        },
+        Object {
+          "args": Array [
+            "length",
+          ],
+          "modifier": null,
+          "name": "HAVE",
+        },
+        Object {
+          "args": Array [
+            "0",
+          ],
+          "modifier": "NOT",
+          "name": "EQUAL",
+        },
+      ],
+      "def": "FIND \\".bkWMgd\\" HAVE \\"length\\" NOT EQUAL \\"0\\"",
+    },
+  ],
+  "name": "Story name",
+}
+`;

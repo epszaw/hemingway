@@ -10,7 +10,7 @@ describe('Processor', () => {
     it('common_story.json run (with common operators)', async () => {
       expect.assertions(2)
 
-      const stepProcessor = new Processor(shortStory)
+      const stepProcessor = new Processor({ story: shortStory })
 
       jest.spyOn(stepProcessor, 'processAction')
       jest.spyOn(stepProcessor, 'shutdown')

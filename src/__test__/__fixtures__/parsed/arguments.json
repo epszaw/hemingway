@@ -6,11 +6,13 @@
       "commands": [
         {
           "name": "FIND",
-          "args": [".foo"]
+          "args": [".foo"],
+          "modifier": null
         },
         {
           "name": "HAVE",
-          "args": ["length"]
+          "args": ["length"],
+          "modifier": null
         },
         {
           "name": "EQUAL",
@@ -24,11 +26,13 @@
       "commands": [
         {
           "name": "FIND",
-          "args": [".foo .bar"]
+          "args": [".foo .bar"],
+          "modifier": null
         },
         {
           "name": "HAVE",
-          "args": ["length"]
+          "args": ["length"],
+          "modifier": null
         },
         {
           "name": "EQUAL",
@@ -42,11 +46,13 @@
       "commands": [
         {
           "name": "FIND",
-          "args": ["[data-test='foo']"]
+          "args": ["[data-test='foo']"],
+          "modifier": null
         },
         {
           "name": "HAVE",
-          "args": ["length"]
+          "args": ["length"],
+          "modifier": null
         },
         {
           "name": "EQUAL",
@@ -60,11 +66,13 @@
       "commands": [
         {
           "name": "FIND",
-          "args": ["[data-test='foo'] .bar"]
+          "args": ["[data-test='foo'] .bar"],
+          "modifier": null
         },
         {
           "name": "HAVE",
-          "args": ["length"]
+          "args": ["length"],
+          "modifier": null
         },
         {
           "name": "EQUAL",
@@ -78,11 +86,13 @@
       "commands": [
         {
           "name": "FIND",
-          "args": [".foo [data-test='bar']"]
+          "args": [".foo [data-test='bar']"],
+          "modifier": null
         },
         {
           "name": "HAVE",
-          "args": ["length"]
+          "args": ["length"],
+          "modifier": null
         },
         {
           "name": "EQUAL",
