@@ -72,9 +72,11 @@
     ]
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "node src/postinstall.js"
   },
   "dependencies": {
+    "center-align": "^1.0.1",
     "chai": "^4.1.2",
     "chalk": "2",
     "lodash": "^4.17.11",
