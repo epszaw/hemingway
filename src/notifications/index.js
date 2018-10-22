@@ -1,6 +1,13 @@
 const { greenBright, yellowBright, underline } = require('chalk').default
 const center = require('center-align')
-const { join, pipe } = require('lodash/fp')
+const { join, pipe, identity } = require('lodash/fp')
+
+const centeredMessageFromLines = (lines, color = identity) =>
+  pipe(
+    join('\n'),
+    color,
+    center
+  )(lines)
 
 const earlyVersion = () => {
   const lines = [
@@ -13,31 +20,19 @@ const earlyVersion = () => {
     '\n',
   ]
 
-  console.info(
-    pipe(
-      join('\n'),
-      greenBright,
-      center
-    )(lines)
-  )
+  console.info(centeredMessageFromLines(lines, greenBright))
 }
 
-const unsupportedOperator = name => {
+const unsupportedOperator = (operator, story) => {
   const lines = [
     '\n',
-    `Operator "${name}" not supported yet and this story will be skipped`,
+    `Operator "${operator}" not supported yet and story "${story}" will be skipped`,
     'Feel free to request new features here:',
     underline('https://github.com/lamartire/hemingway'),
     '\n',
   ]
 
-  console.info(
-    pipe(
-      join('\n'),
-      yellowBright,
-      center
-    )(lines)
-  )
+  console.info(centeredMessageFromLines(lines, yellowBright))
 }
 
 module.exports = {

@@ -284,6 +284,45 @@ Array [
 ]
 `;
 
+exports[`StoryParser StoryParser – parseStories should not pass stories with unsupported operators 1`] = `
+Array [
+  Object {
+    "actions": Array [
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              ".foo",
+            ],
+            "modifier": null,
+            "name": "FIND",
+          },
+          Object {
+            "args": Array [],
+            "modifier": null,
+            "name": "CLICK",
+          },
+        ],
+        "def": "FIND \\".foo\\" CLICK",
+      },
+      Object {
+        "commands": Array [
+          Object {
+            "args": Array [
+              ".bar",
+            ],
+            "modifier": null,
+            "name": "FIND",
+          },
+        ],
+        "def": "FIND \\".bar\\"",
+      },
+    ],
+    "name": "Story 1",
+  },
+]
+`;
+
 exports[`StoryParser StoryParser – parseStory should correctly parse actions with separated arguments 1`] = `
 Object {
   "actions": Array [

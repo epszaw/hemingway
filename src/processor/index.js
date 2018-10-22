@@ -12,12 +12,12 @@ const { ProcessorError } = require('../utils/error')
 const { CommonParser } = require('../parser')
 
 class Processor {
-  constructor({ story, debug, args }) {
+  constructor({ story, headless, args }) {
     if (!story) {
       throw new Error('You can not create processor without step tree!')
     }
 
-    this.debug = debug
+    this.headless = headless
     this.story = story
     this.args = args || ['--no-sandbox', '--disable-setuid-sandbox']
 
@@ -204,7 +204,7 @@ class Processor {
   async init() {
     this._browser = await puppeteer.launch({
       args: this.args,
-      headless: !this.debug,
+      headless: this.headless,
     })
     this._page = await this._browser.newPage()
   }

@@ -9,7 +9,9 @@ const {
   concat,
   flatMap,
   get,
+  reduce,
 } = require('lodash/fp')
+const { unsupportedOperator } = require('../notifications')
 
 const allowedCommandsList = [
   'OPEN',
@@ -28,18 +30,32 @@ const allowedCommandsList = [
 /**
  * Regexes for all methods
  */
-const operatorsRegex = new RegExp(`(${allowedCommandsList.join('|')})`)
+const operatorsRegex = /^[A-Z]+$/
 const modifierRegex = /(NOT)/
 const titleRegex = /^#\s/
-const keyRegex = /({[A-Z+]+})/gim
+const keyboardKeyRegex = /({[A-Z+]+})/gim
 const actionsSplittingRegex = /("[^"]+"|[\w]+)/
+
+/**
+ * Parser error
+ * Need for passing type of error and following payload for more informative console output
+ */
+class ParserError extends Error {
+  constructor({ message, type, payload }) {
+    super(message)
+
+    // TODO: add type as ENUM
+    this.type = type
+    this.payload = payload
+  }
+}
 
 /**
  * Stories parser with static methods
  */
 class StoryParser {
   static appendModifier(acc, atom) {
-    return assign(acc, {
+    return assign(acc)({
       commands: concat(acc.commands, {
         name: null,
         modifier: atom,
@@ -49,7 +65,7 @@ class StoryParser {
   }
 
   static appendOperatorToModifier(acc, atom) {
-    return assign(acc, {
+    return assign(acc)({
       commands: concat(
         slice(0, acc.commands.length - 1, acc.commands),
         assign(last(acc.commands), {
@@ -60,7 +76,7 @@ class StoryParser {
   }
 
   static appendOperator(acc, atom) {
-    return assign(acc, {
+    return assign(acc)({
       commands: concat(acc.commands, {
         name: atom,
         modifier: null,
@@ -72,7 +88,7 @@ class StoryParser {
   static appendArguments(acc, atom) {
     const lastCommand = last(acc.commands)
 
-    return assign(acc, {
+    return assign(acc)({
       commands: concat(
         slice(0, acc.commands.length - 1, acc.commands),
         assign(lastCommand, {
@@ -98,8 +114,15 @@ class StoryParser {
           return this.appendModifier(acc, atom)
         } else if (isOperator && lastCommand && !get('name', lastCommand)) {
           return this.appendOperatorToModifier(acc, atom)
-        } else if (isOperator) {
+        } else if (isOperator && allowedCommandsList.includes(atom)) {
           return this.appendOperator(acc, atom)
+        } else if (isOperator && !allowedCommandsList.includes(atom)) {
+          throw new ParserError({
+            message: `Operator ${atom} is not supported yet!`,
+            // TODO: make map with types and handle them
+            type: 'unsupported_operator',
+            payload: atom,
+          })
         }
 
         return this.appendArguments(acc, atom)
@@ -112,11 +135,11 @@ class StoryParser {
   }
 
   static parseStory(rawStory) {
-    const lines = reject(isEmpty, rawStory.split('\n'))
+    const lines = reject(isEmpty)(rawStory.split('\n'))
     const parsedStory = lines.reduce(
       (acc, line) => {
         if (titleRegex.test(line) && !acc.name) {
-          return assign(acc, {
+          return assign(acc)({
             name: line.replace(/^#\s/, ''),
           })
         }
@@ -140,7 +163,23 @@ class StoryParser {
       signedRawStories
     )
 
-    return map(rawStory => this.parseStory(rawStory))(storiesHeap)
+    return reduce((acc, rawStory) => {
+      try {
+        const parsedStory = this.parseStory(rawStory)
+
+        return concat(acc, parsedStory)
+      } catch (err) {
+        if (err.type === 'unsupported_operator') {
+          /**
+           * Notify user if operator not supported at this moment and return stories without story
+           * with unsupported operator
+           */
+          unsupportedOperator(err.payload)
+        }
+
+        return acc
+      }
+    }, [])(storiesHeap)
   }
 
   static signStoriesNames(rawStories) {
@@ -161,10 +200,10 @@ class StoryParser {
 class CommonParser {
   static parseInputText(text) {
     return text
-      .split(keyRegex)
+      .split(keyboardKeyRegex)
       .filter(word => !isEmpty(word))
       .map(word => {
-        if (keyRegex.test(word)) {
+        if (keyboardKeyRegex.test(word)) {
           return {
             type: 'key',
             value: word.replace(/\{|\}/g, '').toLowerCase(),
@@ -180,6 +219,7 @@ class CommonParser {
 }
 
 module.exports = {
+  ParserError,
   StoryParser,
   CommonParser,
 }

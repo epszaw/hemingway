@@ -5,8 +5,8 @@ const { Processor } = require('../processor')
 const { info, error } = require('../utils/log')
 
 class Runner {
-  constructor({ finder, parser, args, debug }) {
-    this.debug = debug
+  constructor({ finder, parser, args, open }) {
+    this.headless = !open
     this.args = args
     this.finder = finder
     this.parser = parser
@@ -52,7 +52,7 @@ class Runner {
 
   async processStory(story) {
     const storyProcessor = new Processor({
-      debug: this.debug,
+      headless: this.headless,
       args: this.args,
       story,
     })
@@ -91,6 +91,8 @@ class Runner {
       )
       this.createLog()
     } else {
+      // TODO: create method for outputing
+      // TODO: add skipped
       info(`${passed} passed, ${Object.keys(failed).length} failed. Done.`)
     }
 

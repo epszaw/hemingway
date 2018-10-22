@@ -18,6 +18,7 @@ describe('StoryParser', () => {
   let titledStory
   let argumentsStory
   let operatorsStory
+  let unsupportedOperatorStory
 
   beforeAll(async () => {
     singleStory = await readRawStoryFixture('common_story')
@@ -26,6 +27,7 @@ describe('StoryParser', () => {
     titledStory = await readRawStoryFixture('titled_story')
     argumentsStory = await readRawStoryFixture('arguments')
     operatorsStory = await readRawStoryFixture('operators')
+    unsupportedOperatorStory = await readRawStoryFixture('unsupported_operator')
   })
 
   describe('StoryParser – signStoriesNames', () => {
@@ -111,6 +113,17 @@ describe('StoryParser', () => {
         {
           filename: 'stories.md',
           source: multipleStories,
+        },
+      ])
+
+      expect(res).toMatchSnapshot()
+    })
+
+    it('should not pass stories with unsupported operators', () => {
+      const res = StoryParser.parseStories([
+        {
+          filename: 'unsupported_operators.md',
+          source: unsupportedOperatorStory,
         },
       ])
 
