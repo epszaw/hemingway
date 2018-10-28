@@ -41,13 +41,18 @@ class Runner {
     })
   }
 
-  async getStories(storiesPaths = []) {
-    const rawStories = !isEmpty(storiesPaths)
-      ? await this.finder.getStoriesByPaths(storiesPaths)
-      : await this.finder.getStories()
-    const parsedStories = this.parser.parseStories(rawStories) /* ? */
+  async getStories(storyPath) {
+    let rawStories
 
-    return parsedStories
+    if (storyPath) {
+      const rawStory = await this.finder.getStoryByPath(storyPath)
+
+      rawStories = [rawStory]
+    } else {
+      rawStories = await this.finder.getStories()
+    }
+
+    return this.parser.parseStories(rawStories)
   }
 
   async processStory(story) {
@@ -73,8 +78,8 @@ class Runner {
     }
   }
 
-  async run(storiesPaths) {
-    const stories = await this.getStories(storiesPaths)
+  async run(storyPath) {
+    const stories = await this.getStories(storyPath)
 
     this.loader.start()
     await this.processStories(stories)
@@ -92,7 +97,6 @@ class Runner {
       this.createLog()
     } else {
       // TODO: create method for outputing
-      // TODO: add skipped
       info(`${passed} passed, ${Object.keys(failed).length} failed. Done.`)
     }
 

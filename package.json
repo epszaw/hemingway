@@ -73,7 +73,7 @@
   },
   "scripts": {
     "test": "jest",
-    "postinstall": "node src/postinstall.js"
+    "postinstall": "node src/hooks/postinstall.js"
   },
   "dependencies": {
     "center-align": "^1.0.1",
