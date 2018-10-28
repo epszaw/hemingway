@@ -30,15 +30,10 @@ describe('StoryParser', () => {
     unsupportedOperatorStory = await readRawStoryFixture('unsupported_operator')
   })
 
-  describe('StoryParser – signStoriesNames', () => {
+  describe('StoryParser – signStories', () => {
     it('should add filename as story title if title is not exist', () => {
       expect(
-        StoryParser.signStoriesNames([
-          {
-            filename: 'untitled_story.md',
-            source: untitledStory,
-          },
-        ])
+        StoryParser.signStories('untitled_story.md', [untitledStory])
       ).toEqual([titledStory])
     })
   })

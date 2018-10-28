@@ -7,7 +7,6 @@ const {
   last,
   slice,
   concat,
-  flatMap,
   get,
   reduce,
 } = require('lodash/fp')
@@ -158,38 +157,38 @@ class StoryParser {
   }
 
   static parseStories(rawStories) {
-    const signedRawStories = this.signStoriesNames(rawStories)
-    const storiesHeap = flatMap(rawStory => rawStory.split(/\n[-]{3}\n{2}/))(
-      signedRawStories
-    )
+    // const signedStories = this.signStories(rawStories)
 
-    return reduce((acc, rawStory) => {
-      try {
-        const parsedStory = this.parseStory(rawStory)
+    return reduce((acc, { filename, source }) => {
+      // ! Refactor this moment. Move nested stories processing into method
+      const splittedStories = source.split(/\n[-]{3}\n{2}/)
+      const signedStories = this.signStories(filename, splittedStories)
+      const parsedStories = reduce((parsedAcc, story) => {
+        try {
+          const parsedStory = this.parseStory(story)
 
-        return concat(acc, parsedStory)
-      } catch (err) {
-        if (err.type === 'unsupported_operator') {
-          /**
-           * Notify user if operator not supported at this moment and return stories without story
-           * with unsupported operator
-           */
-          unsupportedOperator(err.payload)
+          return concat(parsedAcc, parsedStory)
+        } catch (err) {
+          if (err.type === 'unsupported_operator') {
+            unsupportedOperator(err.payload, filename)
+          }
+
+          return parsedAcc
         }
+      }, [])(signedStories)
 
-        return acc
-      }
-    }, [])(storiesHeap)
+      return concat(acc, parsedStories)
+    }, [])(rawStories)
   }
 
-  static signStoriesNames(rawStories) {
-    return map(({ filename, source }) => {
-      if (titleRegex.test(source)) {
-        return source
+  static signStories(filename, rawStories) {
+    return reduce((acc, rawStory) => {
+      if (titleRegex.test(rawStory)) {
+        return acc.concat(rawStory)
       }
 
-      return `# ${filename}\n\n${source}`
-    })(rawStories)
+      return concat(acc, `# ${filename}\n\n${rawStory}`)
+    }, [])(rawStories)
   }
 }
 

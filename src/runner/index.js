@@ -41,11 +41,11 @@ class Runner {
     })
   }
 
-  async findStories(storiesPaths = []) {
+  async getStories(storiesPaths = []) {
     const rawStories = !isEmpty(storiesPaths)
       ? await this.finder.getStoriesByPaths(storiesPaths)
       : await this.finder.getStories()
-    const parsedStories = this.parser.parseStories(rawStories)
+    const parsedStories = this.parser.parseStories(rawStories) /* ? */
 
     return parsedStories
   }
@@ -74,7 +74,7 @@ class Runner {
   }
 
   async run(storiesPaths) {
-    const stories = await this.findStories(storiesPaths)
+    const stories = await this.getStories(storiesPaths)
 
     this.loader.start()
     await this.processStories(stories)

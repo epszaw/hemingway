@@ -19,7 +19,8 @@ class Finder {
   static async findStoriesByPaths(storiesPaths) {
     for (const storyPath of storiesPaths) {
       try {
-        // TODO: check is file exist of not. Dont read it!!!
+        // TODO: check is file exist or not. Dont read it!!!
+        // TODO: Also add notification
         // const res = await
       } catch (err) {}
     }
