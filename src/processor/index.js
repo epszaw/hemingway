@@ -279,13 +279,7 @@ class Processor {
         await this.sleep(args, modifier)
         break
       default:
-        // TODO: move to parser
-        console.warn(
-          [
-            `Operator "${name}" not supported yet.`,
-            'Feel free to request new features in project repository.',
-          ].join('\n')
-        )
+        break
     }
   }
 }

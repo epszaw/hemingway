@@ -1,8 +1,8 @@
-const { isEmpty } = require('lodash/fp')
 const ora = require('ora')
 const { bold } = require('chalk')
 const { Processor } = require('../processor')
 const { info, error } = require('../utils/log')
+const { storiesNotFound } = require('../notifications')
 
 class Runner {
   constructor({ finder, parser, args, open }) {
@@ -31,6 +31,7 @@ class Runner {
   }
 
   createLog() {
+    // TODO: move logging to external function. May be to notifications
     Object.keys(this.history.failed).forEach(key => {
       const { def, message } = this.history.failed[key]
 
@@ -42,14 +43,17 @@ class Runner {
   }
 
   async getStories(storyPath) {
-    let rawStories
+    let rawStories = []
 
-    if (storyPath) {
-      const rawStory = await this.finder.getStoryByPath(storyPath)
+    try {
+      const res = storyPath
+        ? await this.finder.getStoryByPath(storyPath)
+        : await this.finder.getStories()
 
-      rawStories = [rawStory]
-    } else {
-      rawStories = await this.finder.getStories()
+      rawStories = rawStories.concat(res)
+    } catch (err) {
+      storiesNotFound(storyPath)
+      process.exit(1)
     }
 
     return this.parser.parseStories(rawStories)
@@ -95,12 +99,12 @@ class Runner {
         } failed. Done with errors, see log below.`
       )
       this.createLog()
+      process.exit(1)
     } else {
       // TODO: create method for outputing
       info(`${passed} passed, ${Object.keys(failed).length} failed. Done.`)
+      process.exit()
     }
-
-    process.exit()
   }
 }
 

@@ -42,13 +42,9 @@ class Finder {
   }
 
   static async getStoryByPath(storyPath) {
-    try {
-      const story = await this.readStoryByPath(storyPath)
+    const story = await this.readStoryByPath(storyPath)
 
-      return story
-    } catch (err) {
-      console.log(err)
-    }
+    return story
   }
 
   static async getStories() {

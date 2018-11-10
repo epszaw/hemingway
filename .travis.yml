@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - '10'
+  - 10
 
 dist: trusty
 
@@ -20,7 +20,7 @@ cache:
     - node_modules
 
 before_install:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - google-chrome-stable --headless --disable-gpu
 
 install:
   - yarn install

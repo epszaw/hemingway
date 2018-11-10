@@ -1,4 +1,9 @@
-const { greenBright, yellowBright, underline } = require('chalk').default
+const {
+  greenBright,
+  yellowBright,
+  redBright,
+  underline,
+} = require('chalk').default
 const center = require('center-align')
 const { join, pipe, identity } = require('lodash/fp')
 
@@ -35,7 +40,29 @@ const unsupportedOperator = (operator, story) => {
   console.info(centeredMessageFromLines(lines, yellowBright))
 }
 
+const storiesNotFound = path => {
+  const linesForDir = [
+    '\n',
+    'There is no stories folder! ️☝️',
+    'Create "stories" folder with some stories and try again!',
+    '\n',
+  ]
+  const linesForFile = [
+    '\n',
+    `There is no file by given path "${path}"! ☝️`,
+    'Enter other pass and try again!',
+    '\n',
+  ]
+
+  if (path) {
+    console.warn(centeredMessageFromLines(linesForFile, redBright))
+  } else {
+    console.warn(centeredMessageFromLines(linesForDir, redBright))
+  }
+}
+
 module.exports = {
   earlyVersion,
   unsupportedOperator,
+  storiesNotFound,
 }

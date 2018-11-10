@@ -119,6 +119,7 @@ class StoryParser {
           throw new ParserError({
             message: `Operator ${atom} is not supported yet!`,
             // TODO: make map with types and handle them
+            // ? Or wait typescript or flow and create ENUM
             type: 'unsupported_operator',
             payload: atom,
           })
