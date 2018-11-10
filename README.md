@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/lamartire/hemingway" target="_blank">
-    <img width="150"src="https://github.com/lamartire/hemingway/blob/master/public/logo.svg?raw=true" />
+    <img width="150"src="https://github.com/lamartire/hemingway/blob/master/public/logo.png?raw=true" />
   </a>
 </p>
 
