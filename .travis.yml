@@ -27,3 +27,6 @@ install:
 
 script:
   - yarn test
+
+notifications:
+  slack: hemingwayworkspace:EE6Ff0jXRwp7toHG6n141NuX
