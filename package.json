@@ -1,6 +1,6 @@
 {
   "name": "hemingway",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "repository": "git@github.com:lamartire/hemingway.git",
   "author": "lamartire <lamartire@gmail.com>",
   "license": "GPL-3.0",
@@ -61,7 +61,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
     }
   },
   "lint-staged": {
@@ -73,7 +74,24 @@
   },
   "scripts": {
     "test": "jest",
-    "postinstall": "node src/hooks/postinstall.js"
+    "postinstall": "node src/hooks/postinstall.js",
+    "travis-deploy-once": "travis-deploy-once",
+    "commit": "git-cz",
+    "release": "semantic-release"
+  },
+  "release": {
+    "branch": "master",
+    "prepare": [
+      {
+        "path": "@semantic-release/changelog"
+      },
+      "@semantic-release/git"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   },
   "dependencies": {
     "center-align": "^1.0.1",
@@ -85,7 +103,11 @@
     "puppeteer": "^1.8.0"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^3.0.1",
+    "@semantic-release/git": "^7.0.5",
     "babel-eslint": "^10.0.1",
+    "commitizen": "^3.0.4",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.6.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-config-prettier-standard": "^2.0.0",
@@ -99,6 +121,8 @@
     "jest": "^23.6.0",
     "lint-staged": "^7.3.0",
     "mock-fs": "^4.7.0",
-    "prettier": "^1.14.3"
+    "prettier": "^1.14.3",
+    "semantic-release": "^15.10.8",
+    "travis-deploy-once": "^5.0.9"
   }
 }
