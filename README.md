@@ -6,6 +6,8 @@
 
 # Hemingway ✍️
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lamartire/hemingway.svg)](https://greenkeeper.io/)
+
 [![Build Status][ci-build]][ci] [![code style: prettier][prettier-image]][prettier] ![zero-configuration]
 
 ## Table of contents
